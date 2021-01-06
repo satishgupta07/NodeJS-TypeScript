@@ -24,6 +24,7 @@ async function start() {
         database: "conduit",
         entities: [Article, User],
         synchronize: true,
+        // dropSchema: true, // TODO: not for production
         logging: true,
         logger: "advanced-console"
     })

@@ -16,9 +16,9 @@ export async function createUser(data: UserSignupData) {
 
   const repo = await getRepository(User);
 
-//   const existing = repo.findOne(data.email);
+  const existing = await repo.findOne(data.email);
 
-//   if (existing) throw new Error("User with this email exists");
+  if (existing) throw new Error("User with this email exists");
 
   try {
     const user = await repo.save(
