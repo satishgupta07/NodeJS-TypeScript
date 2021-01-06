@@ -1,9 +1,23 @@
 import { Router } from 'express'
-import {createUser} from "../controllers/users";
+import {createUser, loginUser} from "../controllers/users";
 
 const route = Router()
 
 // POST /users/login        Login
+route.post('/login', async (req, res) => {
+
+    try {
+        const user = await loginUser(req.body.user)
+        return res.status(200).json({ user })
+      } catch (e) {
+        return res.status(422).json({
+          errors: { body: [ 'Login failed', e.message ] }
+        })
+      }
+
+})
+
+// POST /users              Register a new user
 route.post('/', async (req, res) => {
 
     try {
@@ -15,11 +29,6 @@ route.post('/', async (req, res) => {
             errors: { body: ['Could not create user ', e.message] }
         })
     }
-})
-
-// POST /users              Register a new user
-route.post('/', (req, res) => {
-
 })
 
 
